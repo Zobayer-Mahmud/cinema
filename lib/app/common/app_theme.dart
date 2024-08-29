@@ -5,7 +5,7 @@ import 'app_colors.dart';
 
 class AppTheme {
   static themeData() => ThemeData(
-        colorScheme: ColorScheme.light(
+        colorScheme: ColorScheme.dark(
           primary: AppColors.primaryColor,
           secondary: AppColors.primaryColor,
           onPrimary: Colors.white,
@@ -13,7 +13,7 @@ class AppTheme {
           brightness: Brightness.light,
         ),
         fontFamily: 'Raleway',
-        scaffoldBackgroundColor: AppColors.bluishCyan,
+        // scaffoldBackgroundColor: AppColors,
         useMaterial3: true,
         textTheme: GoogleFonts.ralewayTextTheme(
           const TextTheme(
