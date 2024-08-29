@@ -1,9 +1,14 @@
+import 'dart:io';
+
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
+import '../../gen/assets.gen.dart';
+import '../modules/app_widgets/e_button.dart';
 import 'enums/toast_type.dart';
 
 String getPlatformName() {
@@ -56,3 +61,68 @@ void showDelightToast(
     ),
   ).show(Get.context!);
 }
+
+void showExitDialog(BuildContext context) {
+  showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0)), //this right here
+        child: SizedBox(
+          height: 350,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(child: Image.asset(Assets.png.imgExit.path)),
+                const Text(
+                  "Hope to see you soon !",
+                  style:
+                  TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                ),
+                const Text(
+                  "Do you want to exit?",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey),
+                ),
+                const Gap(20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: EButton(
+                        height: 50,
+                        text: "Cancel",
+                        borderWidth: 1,
+                        backgroundColor: Colors.white,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(color: Colors.black),
+                        onPressed: () => Get.back(),
+                      ),
+                    ),
+                    const Gap(15),
+                    Expanded(
+                      child: EButton(
+                          height: 50,
+                          width: 150,
+                          text: "Exit",
+                          onPressed: () => exit(0)),
+                    )
+                  ],
+                ),
+                const Gap(20),
+              ],
+            ),
+          ),
+        ),
+      ));
+}
+
