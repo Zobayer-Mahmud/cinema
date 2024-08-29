@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../api_client/dio_client.dart';
+import '../api/api_client/dio_client.dart';
+
 
 class LocalStorage extends GetxController {
   GetStorage box = GetStorage();

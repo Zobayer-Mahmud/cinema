@@ -18,6 +18,8 @@ dependencies:
   google_fonts: ^6.2.1
   flutter_svg: ^2.0.10+1
   gap: ^3.0.1
+  pretty_dio_logger: ^1.4.0
+  logger: ^2.4.0
 
 dev_dependencies:
   build_runner: any

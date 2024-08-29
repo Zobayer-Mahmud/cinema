@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'package:cinema/app/common/app_constants.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' as g;
-import '../local_storage/local_storage_controller.dart';
-import '../local_storage/local_storage_key.dart';
-import '../utils/enums/toast_type.dart';
-import '../utils/utility.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import '../../local_storage/local_storage_controller.dart';
+import '../../local_storage/local_storage_key.dart';
+import '../../utils/enums/toast_type.dart';
+import '../../utils/utility.dart';
 import 'api_response.dart';
 
 class DioClient extends g.GetxService {
@@ -41,6 +43,16 @@ class DioClient extends g.GetxService {
       ),
     );
 
+    if (kDebugMode) {
+      _dio.interceptors.add(PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90));
+    }
     return this;
   }
 
@@ -67,7 +79,7 @@ class DioClient extends g.GetxService {
   }
 
   Future<ApiResponse> get(
-      {required String endpoint,  Map<String, dynamic>? queryParams}) async {
+      {required String endpoint, Map<String, dynamic>? queryParams}) async {
     queryParams?.removeWhere((key, value) => value == "null" || value == null);
     try {
       print("Token: ${_header?['authorization']}");
@@ -92,8 +104,8 @@ class DioClient extends g.GetxService {
 
   Future<ApiResponse> post({
     required String endpoint,
-     Map<String, dynamic>? data,
-     Map<String, dynamic>? queryParams,
+    Map<String, dynamic>? data,
+    Map<String, dynamic>? queryParams,
   }) async {
     queryParams?.removeWhere((key, value) => value == "null" || value == null);
     data?.removeWhere((key, value) => value == "null" || value == null);
@@ -119,7 +131,8 @@ class DioClient extends g.GetxService {
     }
   }
 
-  Future<ApiResponse> put({required String endpoint,  Map<String, dynamic>? data}) async {
+  Future<ApiResponse> put(
+      {required String endpoint, Map<String, dynamic>? data}) async {
     // if (showApiLoading == true)
 
     // data?.removeWhere(
@@ -182,7 +195,9 @@ class DioClient extends g.GetxService {
   }
 
   Future<ApiResponse> patch(
-      {required String endpoint,  Map<String, dynamic>? data, bool? showApiLoading}) async {
+      {required String endpoint,
+      Map<String, dynamic>? data,
+      bool? showApiLoading}) async {
     data?.removeWhere((key, value) => value == "null" || value == null);
     try {
       final response = await _dio.patch(
@@ -206,7 +221,9 @@ class DioClient extends g.GetxService {
   }
 
   Future<ApiResponse> delete(
-      {required String endpoint,  Map<String, dynamic>? data, bool? showApiLoading}) async {
+      {required String endpoint,
+      Map<String, dynamic>? data,
+      bool? showApiLoading}) async {
     data?.removeWhere((key, value) => value == "null" || value == null);
     try {
       final response = await _dio.delete(
