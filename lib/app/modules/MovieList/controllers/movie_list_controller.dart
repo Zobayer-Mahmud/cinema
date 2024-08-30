@@ -1,29 +1,35 @@
+import 'package:cinema/app/api/service/movie_service.dart';
+import 'package:cinema/app/base/base_controller.dart';
 import 'package:cinema/app/common/app_constants.dart';
+import 'package:cinema/app/data/response/movie/movie_list_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../../data/response/genre/genre_list_response.dart';
 import '../../../data/response/movie/movie_model.dart';
 
-class MovieListController extends GetxController {
-  List<MovieModel> trendingList = [
-    MovieModel(
-      title: 'Monster Hunter',
-      genre: 'Action, Adventure',
-      posterUrl: AppConstants.dummyImageURL,
-    ),
-    MovieModel(
-      title: 'The New Mutants',
-      genre: 'Action, Horror, Sci-Fi',
-      posterUrl: AppConstants.dummyImageURL,
-    ),
-    MovieModel(
-      title: 'Wonder Woman 1984',
-      genre: 'Action',
-      posterUrl: AppConstants.dummyImageURL,
-    ),
-    MovieModel(
-      title: 'Tenet',
-      genre: 'Action, Thriller, Sci-Fi',
-      posterUrl: AppConstants.dummyImageURL,
-    ),
-  ];
+class MovieListController extends BaseController {
+  MovieService movieService = Get.find();
+  bool showLoading = false;
+  @override
+  onReady() async {
+    getGenreList();
+    getTrendingMovieList();
+  }
+
+  List<MovieModel> trendingList = [];
+  getGenreList() async {
+    GenreListResponse? genreListResponse =
+        await movieService.getMovieGenreList();
+    sharedController.genresList = genreListResponse?.genres ?? [];
+    sharedController.update();
+  }
+
+  void getTrendingMovieList() async {
+    MovieListResponse? movieListResponse = await movieService.getMoviesList();
+    trendingList = movieListResponse?.movies ?? [];
+    update();
+  }
+
+  void onTrendingNowSeeMore() {}
 }

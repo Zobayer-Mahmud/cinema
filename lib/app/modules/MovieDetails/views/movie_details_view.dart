@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../app_widgets/arrow_back_button.dart';
 import '../controllers/movie_details_controller.dart';
 
 class MovieDetailsView extends GetView<MovieDetailsController> {
@@ -10,6 +11,7 @@ class MovieDetailsView extends GetView<MovieDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const ArrowBackButton(),
         title: const Text('MovieDetailsView'),
         centerTitle: true,
       ),

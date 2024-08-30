@@ -19,9 +19,13 @@ class DioClient extends g.GetxService {
       HttpHeaders.acceptHeader: "application/json",
       HttpHeaders.contentTypeHeader: "application/json",
       HttpHeaders.userAgentHeader: getPlatformName(),
+      HttpHeaders.acceptLanguageHeader: "en",
+      HttpHeaders.contentLanguageHeader: "en",
+
       if (LocalStorage().getData(LocalStorageKey.TOKEN) != null)
         HttpHeaders.authorizationHeader:
-            'Bearer ${LocalStorage().getData(LocalStorageKey.TOKEN)}',
+            'Bearer ${AppConstants.apiReadAccessToken}',
+      // 'Bearer ${LocalStorage().getData(LocalStorageKey.TOKEN)}',
     };
 
     _dio = Dio(BaseOptions(
@@ -81,6 +85,9 @@ class DioClient extends g.GetxService {
   Future<ApiResponse> get(
       {required String endpoint, Map<String, dynamic>? queryParams}) async {
     queryParams?.removeWhere((key, value) => value == "null" || value == null);
+
+    queryParams ??= {};
+    queryParams['api_key'] = AppConstants.apiKey;
     try {
       print("Token: ${_header?['authorization']}");
       final response = await _dio.get(

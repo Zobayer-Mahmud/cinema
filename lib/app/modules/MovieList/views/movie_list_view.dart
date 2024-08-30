@@ -1,3 +1,4 @@
+import 'package:cinema/app/common/app_colors.dart';
 import 'package:cinema/app/common/app_dimens.dart';
 import 'package:cinema/app/modules/MovieList/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,24 @@ class MovieListView extends StatelessWidget {
               horizontal: AppDimens.paddingMedium,
               vertical: AppDimens.paddingMedium),
           children: [
-            Text('Trending Now', style: Theme.of(context).textTheme.titleSmall),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Trending Now',
+                    style: Theme.of(context).textTheme.titleSmall),
+                GestureDetector(
+                  onTap: controller.onTrendingNowSeeMore,
+                  child: Text('See More',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: AppColors.primaryColor,
+                            decoration: TextDecoration.underline,
+                          )),
+                ),
+              ],
+            ),
             const Gap(10),
             SizedBox(
-              height: 240,
+              height: 300,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: controller.trendingList.length,
