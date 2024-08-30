@@ -9,8 +9,21 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/not_found.json
+  String get notFound => 'assets/lottie/not_found.json';
+
+  /// List of all assets
+  List<String> get values => [notFound];
+}
+
 class $AssetsPngGen {
   const $AssetsPngGen();
+
+  /// File path: assets/png/cinema.png
+  AssetGenImage get cinema => const AssetGenImage('assets/png/cinema.png');
 
   /// File path: assets/png/img_exit.png
   AssetGenImage get imgExit => const AssetGenImage('assets/png/img_exit.png');
@@ -18,13 +31,18 @@ class $AssetsPngGen {
   /// File path: assets/png/loader.png
   AssetGenImage get loader => const AssetGenImage('assets/png/loader.png');
 
+  /// File path: assets/png/place_holder.png
+  AssetGenImage get placeHolder =>
+      const AssetGenImage('assets/png/place_holder.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [imgExit, loader];
+  List<AssetGenImage> get values => [cinema, imgExit, loader, placeHolder];
 }
 
 class Assets {
   Assets._();
 
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsPngGen png = $AssetsPngGen();
 }
 

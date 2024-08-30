@@ -22,7 +22,7 @@ class AppTheme {
               fontWeight: FontWeight.w600,
             ),
             headlineMedium: TextStyle(
-              fontSize: 26,
+              fontSize: 32,
               fontWeight: FontWeight.w900,
             ),
             headlineSmall: TextStyle(
@@ -35,28 +35,28 @@ class AppTheme {
               color: Colors.black,
             ),
             titleLarge: TextStyle(
-              fontSize: 23,
-              fontWeight: FontWeight.w700,
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
             ),
             titleMedium: TextStyle(
-              fontSize: 19,
+              fontSize: 22,
               fontWeight: FontWeight.w700,
             ),
             titleSmall: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
             ),
             bodyLarge: TextStyle(
               fontSize: 16,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
             ),
             bodyMedium: TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
             ),
             bodySmall: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),

@@ -54,7 +54,7 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     BottomNavItem(
-                      label: 'Events',
+                      label: 'Movies',
                       isSelected: controller.selectedIndex == 0,
                       icon: Icons.home_outlined,
                       onPressed: () => controller.changeIndex(0),

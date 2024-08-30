@@ -1,23 +1,39 @@
+import 'package:cinema/app/api/service/movie_service.dart';
+import 'package:cinema/app/base/base_controller.dart';
+import 'package:cinema/app/common/app_constants.dart';
+import 'package:cinema/app/data/response/movie/movie_list_response.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class MovieListController extends GetxController {
-  //TODO: Implement MovieListController
+import '../../../data/response/genre/genre_list_response.dart';
+import '../../../data/response/movie/movie_model.dart';
+import '../../../routes/app_pages.dart';
 
-  final count = 0.obs;
+class MovieListController extends BaseController {
+  MovieService movieService = Get.find();
+  bool showLoading = false;
   @override
-  void onInit() {
-    super.onInit();
+  onReady() async {
+    getGenreList();
+    getTrendingMovieList();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  List<MovieModel> trendingList = [];
+  getGenreList() async {
+    GenreListResponse? genreListResponse =
+        await movieService.getMovieGenreList();
+    sharedController.genresList = genreListResponse?.genres ?? [];
+    sharedController.update();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void getTrendingMovieList() async {
+    MovieListResponse? movieListResponse = await movieService.getMoviesList();
+    trendingList = movieListResponse?.movies ?? [];
+    update();
   }
 
-  void increment() => count.value++;
+  void onTrendingNowSeeMore() {
+    Get.toNamed(Routes.MOVIES_BY_CATEGORY,
+        parameters: {'tye': "trending_movie"});
+  }
 }
