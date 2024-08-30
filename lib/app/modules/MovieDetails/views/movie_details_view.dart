@@ -221,14 +221,14 @@ class MovieDetailsView extends StatelessWidget {
                                                     ?.first
                                                     .logoPath ==
                                                 null
-                                            ? Icon(
+                                            ? const Icon(
                                                 Icons.business,
                                                 color: Colors.white,
                                                 size: 30,
                                               )
                                             : null,
                                       ),
-                                      Gap(AppDimens.paddingMedium),
+                                      const Gap(AppDimens.paddingMedium),
                                       // Company name and country
                                       Column(
                                         crossAxisAlignment:
@@ -269,7 +269,7 @@ class MovieDetailsView extends StatelessWidget {
                                                           ?.first
                                                           .name ??
                                                       ''),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.white70,
                                                 fontSize: 14,
                                               ),
