@@ -9,6 +9,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsLottieGen {
+  const $AssetsLottieGen();
+
+  /// File path: assets/lottie/not_found.json
+  String get notFound => 'assets/lottie/not_found.json';
+
+  /// List of all assets
+  List<String> get values => [notFound];
+}
+
 class $AssetsPngGen {
   const $AssetsPngGen();
 
@@ -32,6 +42,7 @@ class $AssetsPngGen {
 class Assets {
   Assets._();
 
+  static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsPngGen png = $AssetsPngGen();
 }
 

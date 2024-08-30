@@ -1,36 +1,39 @@
+import '../genre/genre_list_response.dart';
+
 class MovieDetails {
   MovieDetails({
-      this.adult, 
-      this.backdropPath, 
-      this.belongsToCollection, 
-      this.budget, 
-      this.genres, 
-      this.homepage, 
-      this.id, 
-      this.imdbId, 
-      this.originCountry, 
-      this.originalLanguage, 
-      this.originalTitle, 
-      this.overview, 
-      this.popularity, 
-      this.posterPath, 
-      this.productionCompanies, 
-      this.productionCountries, 
-      this.releaseDate, 
-      this.revenue, 
-      this.runtime, 
-      this.spokenLanguages, 
-      this.status, 
-      this.tagline, 
-      this.title, 
-      this.video, 
-      this.voteAverage, 
-      this.voteCount,});
+    this.adult,
+    this.backdropPath,
+    // this.belongsToCollection,
+    this.budget,
+    this.genres,
+    this.homepage,
+    this.id,
+    this.imdbId,
+    this.originCountry,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.productionCompanies,
+    this.productionCountries,
+    this.releaseDate,
+    this.revenue,
+    this.runtime,
+    this.spokenLanguages,
+    this.status,
+    this.tagline,
+    this.title,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
+  });
 
   MovieDetails.fromJson(dynamic json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
-    belongsToCollection = json['belongs_to_collection'];
+    // belongsToCollection = json['belongs_to_collection'];
     budget = json['budget'];
     if (json['genres'] != null) {
       genres = [];
@@ -41,7 +44,9 @@ class MovieDetails {
     homepage = json['homepage'];
     id = json['id'];
     imdbId = json['imdb_id'];
-    originCountry = json['origin_country'] != null ? json['origin_country'].cast<String>() : [];
+    originCountry = json['origin_country'] != null
+        ? json['origin_country'].cast<String>()
+        : [];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];
@@ -59,7 +64,9 @@ class MovieDetails {
         productionCountries?.add(ProductionCountries.fromJson(v));
       });
     }
-    releaseDate = json['release_date'];
+    if (json['release_date'] != null) {
+      releaseDate = DateTime.tryParse(json['release_date']);
+    }
     revenue = json['revenue'];
     runtime = json['runtime'];
     if (json['spoken_languages'] != null) {
@@ -77,7 +84,7 @@ class MovieDetails {
   }
   bool? adult;
   String? backdropPath;
-  dynamic belongsToCollection;
+  // dynamic belongsToCollection;
   num? budget;
   List<Genres>? genres;
   String? homepage;
@@ -91,7 +98,7 @@ class MovieDetails {
   String? posterPath;
   List<ProductionCompanies>? productionCompanies;
   List<ProductionCountries>? productionCountries;
-  String? releaseDate;
+  DateTime? releaseDate;
   num? revenue;
   num? runtime;
   List<SpokenLanguages>? spokenLanguages;
@@ -106,7 +113,7 @@ class MovieDetails {
     final map = <String, dynamic>{};
     map['adult'] = adult;
     map['backdrop_path'] = backdropPath;
-    map['belongs_to_collection'] = belongsToCollection;
+    // map['belongs_to_collection'] = belongsToCollection;
     map['budget'] = budget;
     if (genres != null) {
       map['genres'] = genres?.map((v) => v.toJson()).toList();
@@ -121,16 +128,19 @@ class MovieDetails {
     map['popularity'] = popularity;
     map['poster_path'] = posterPath;
     if (productionCompanies != null) {
-      map['production_companies'] = productionCompanies?.map((v) => v.toJson()).toList();
+      map['production_companies'] =
+          productionCompanies?.map((v) => v.toJson()).toList();
     }
     if (productionCountries != null) {
-      map['production_countries'] = productionCountries?.map((v) => v.toJson()).toList();
+      map['production_countries'] =
+          productionCountries?.map((v) => v.toJson()).toList();
     }
     map['release_date'] = releaseDate;
     map['revenue'] = revenue;
     map['runtime'] = runtime;
     if (spokenLanguages != null) {
-      map['spoken_languages'] = spokenLanguages?.map((v) => v.toJson()).toList();
+      map['spoken_languages'] =
+          spokenLanguages?.map((v) => v.toJson()).toList();
     }
     map['status'] = status;
     map['tagline'] = tagline;
@@ -140,14 +150,14 @@ class MovieDetails {
     map['vote_count'] = voteCount;
     return map;
   }
-
 }
 
 class SpokenLanguages {
   SpokenLanguages({
-      this.englishName, 
-      this.iso6391, 
-      this.name,});
+    this.englishName,
+    this.iso6391,
+    this.name,
+  });
 
   SpokenLanguages.fromJson(dynamic json) {
     englishName = json['english_name'];
@@ -165,13 +175,13 @@ class SpokenLanguages {
     map['name'] = name;
     return map;
   }
-
 }
 
 class ProductionCountries {
   ProductionCountries({
-      this.iso31661, 
-      this.name,});
+    this.iso31661,
+    this.name,
+  });
 
   ProductionCountries.fromJson(dynamic json) {
     iso31661 = json['iso_3166_1'];
@@ -186,15 +196,15 @@ class ProductionCountries {
     map['name'] = name;
     return map;
   }
-
 }
 
 class ProductionCompanies {
   ProductionCompanies({
-      this.id, 
-      this.logoPath, 
-      this.name, 
-      this.originCountry,});
+    this.id,
+    this.logoPath,
+    this.name,
+    this.originCountry,
+  });
 
   ProductionCompanies.fromJson(dynamic json) {
     id = json['id'];
@@ -215,26 +225,4 @@ class ProductionCompanies {
     map['origin_country'] = originCountry;
     return map;
   }
-
-}
-
-class Genres {
-  Genres({
-      this.id, 
-      this.name,});
-
-  Genres.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
-  }
-  num? id;
-  String? name;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    return map;
-  }
-
 }
