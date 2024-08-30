@@ -4,6 +4,7 @@ import 'package:cinema/app/common/api_endpoints.dart';
 import 'package:cinema/app/common/app_constants.dart';
 import 'package:cinema/app/data/response/genre/genre_list_response.dart';
 import 'package:cinema/app/data/response/movie/movie_details.dart';
+import 'package:cinema/app/data/response/movie_credit_response.dart';
 
 import '../../data/response/movie/movie_list_response.dart';
 
@@ -55,6 +56,26 @@ class MovieService extends BaseApiService {
       }
     } catch (e) {
       sharedController.logger.e("getMovieGenreList api error $runtimeType");
+    }
+    return null;
+  }
+
+  Future<MovieCreditResponse?> getMovieCastAndCrewByMovieId(
+      {num? movieId}) async {
+    ApiResponse apiResponse =
+        await dioClient.get(endpoint: "movie/$movieId/credits", queryParams: {
+      "language": "en",
+    });
+    try {
+      if (apiResponse.success && apiResponse.response?.data != null) {
+        return MovieCreditResponse.fromJson(apiResponse.response?.data);
+      } else {
+        sharedController.logger
+            .e("getMovieCastAndCrewByMovieId parse error $runtimeType");
+      }
+    } catch (e) {
+      sharedController.logger
+          .e("getMovieCastAndCrewByMovieId api error $runtimeType");
     }
     return null;
   }

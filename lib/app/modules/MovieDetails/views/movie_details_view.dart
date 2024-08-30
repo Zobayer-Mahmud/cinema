@@ -10,6 +10,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../gen/assets.gen.dart';
 import '../../app_widgets/arrow_back_button.dart';
+import '../../app_widgets/cart_crew_card.dart';
 import '../../app_widgets/genre_chip.dart';
 import '../controllers/movie_details_controller.dart';
 
@@ -140,6 +141,7 @@ class MovieDetailsView extends StatelessWidget {
                                 ),
 
                                 const Gap(AppDimens.paddingMedium),
+
                                 // ElevatedButton(
                                 //   onPressed: () {
                                 //     // Handle play action
@@ -277,7 +279,58 @@ class MovieDetailsView extends StatelessWidget {
                                         ],
                                       ),
                                     ],
-                                  )
+                                  ),
+                                if (controller.movieDetails?.productionCompanies
+                                        ?.isNotEmpty ==
+                                    true)
+                                  const Gap(AppDimens.paddingMedium),
+                                if (controller.casts.isNotEmpty == true)
+                                  Text('Top Casts',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall),
+                                if (controller.casts.isNotEmpty == true)
+                                  const Gap(AppDimens.paddingSmall),
+                                if (controller.casts.isNotEmpty == true)
+                                  ListView.builder(
+                                      shrinkWrap: true,
+                                      primary: false,
+                                      padding: EdgeInsets.zero,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: controller.casts.length > 5
+                                          ? 5
+                                          : controller.casts.length,
+                                      itemBuilder: (context, index) {
+                                        var cast = controller.casts[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 4),
+                                          child: CartCrewCard(
+                                            imageUrl: cast.profilePath,
+                                            actorName: cast.name,
+                                            role: cast.character,
+                                          ),
+                                        );
+                                      }),
+                                if (controller.crews.isNotEmpty == true &&
+                                    controller.crews.first.job == "Director")
+                                  Text('Directed By',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall),
+                                if (controller.crews.isNotEmpty == true &&
+                                    controller.crews.first.job == "Director")
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 4),
+                                    child: CartCrewCard(
+                                      imageUrl:
+                                          controller.crews.first.profilePath,
+                                      actorName: controller.crews.first.name,
+                                      role: controller.crews.first.job,
+                                    ),
+                                  ),
                               ]))
                     ],
                   )

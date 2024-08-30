@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../data/response/genre/genre_list_response.dart';
 import '../../../data/response/movie/movie_model.dart';
+import '../../../routes/app_pages.dart';
 
 class MovieListController extends BaseController {
   MovieService movieService = Get.find();
@@ -31,5 +32,8 @@ class MovieListController extends BaseController {
     update();
   }
 
-  void onTrendingNowSeeMore() {}
+  void onTrendingNowSeeMore() {
+    Get.toNamed(Routes.MOVIES_BY_CATEGORY,
+        parameters: {'tye': "trending_movie"});
+  }
 }

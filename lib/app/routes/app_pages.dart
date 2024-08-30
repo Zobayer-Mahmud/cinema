@@ -8,6 +8,8 @@ import '../modules/favourites/bindings/favourites_binding.dart';
 import '../modules/favourites/views/favourites_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/moviesByCategory/bindings/movies_by_category_binding.dart';
+import '../modules/moviesByCategory/views/movies_by_category_view.dart';
 
 part 'app_routes.dart';
 
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.FAVOURITES,
       page: () => const FavouritesView(),
       binding: FavouritesBinding(),
+    ),
+    GetPage(
+      name: _Paths.MOVIES_BY_CATEGORY,
+      page: () => const MoviesByCategoryView(),
+      binding: MoviesByCategoryBinding(),
     ),
   ];
 }
