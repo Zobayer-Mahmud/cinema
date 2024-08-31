@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cinema/app/api/service/movie_service.dart';
+import 'package:cinema/app/utils/enums/movie_list_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,17 @@ class MoviesByCategoryController extends GetxController {
 
   num? lastPage;
   bool isLoading = false;
+  MovieListType movieListType = MovieListType.trending;
+  @override
+  void onInit() {
+    if (Get.parameters['type'] != null) {
+      movieListType = MovieListTypeExtension.fromString(
+              Get.parameters['type'] ?? 'trending') ??
+          MovieListType.trending;
+    }
+    super.onInit();
+  }
+
   @override
   void onReady() async {
     await getTrendingMovieList();
@@ -25,21 +37,22 @@ class MoviesByCategoryController extends GetxController {
   getCallForPagination() async {
     if (currentPage <= (lastPage ?? 0)) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 1000), () async {
-        currentPage++; // since it's initial value is 1
+      _debounce = Timer(const Duration(milliseconds: 500), () async {
+        currentPage++;
         await getTrendingMovieList();
         update();
       });
     }
   }
 
-  getTrendingMovieList() async {
-    if (currentPage == 1) {
+  getTrendingMovieList({num? pageNo}) async {
+    currentPage = pageNo ?? currentPage;
+    if (currentPage == 1 && pageNo == null) {
       isLoading = true;
       update();
     }
-    MovieListResponse? movieListResponse =
-        await movieService.getMoviesList(page: currentPage);
+    MovieListResponse? movieListResponse = await movieService.getMoviesList(
+        page: currentPage, type: movieListType);
     movies.addAll(movieListResponse?.movies as Iterable<MovieModel>);
     lastPage = movieListResponse?.totalPages;
     isLoading = false;

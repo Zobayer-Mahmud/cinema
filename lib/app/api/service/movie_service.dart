@@ -7,6 +7,7 @@ import 'package:cinema/app/data/response/movie/movie_details.dart';
 import 'package:cinema/app/data/response/movie_credit_response.dart';
 
 import '../../data/response/movie/movie_list_response.dart';
+import '../../utils/enums/movie_list_type.dart';
 
 class MovieService extends BaseApiService {
   Future<MovieDetails?> getMoviesDetails({num? movieId}) async {
@@ -26,11 +27,17 @@ class MovieService extends BaseApiService {
     return null;
   }
 
-  Future<MovieListResponse?> getMoviesList({num? page}) async {
-    ApiResponse apiResponse = await dioClient
-        .get(endpoint: ApiEndPoints.trendingAllDay, queryParams: {
-      "page": page,
-    });
+  Future<MovieListResponse?> getMoviesList(
+      {num? page, MovieListType type = MovieListType.trending}) async {
+    ApiResponse apiResponse = await dioClient.get(
+        endpoint: type == MovieListType.trending
+            ? ApiEndPoints.trendingAllDay
+            : type == MovieListType.popular
+                ? ApiEndPoints.moviePopular
+                : ApiEndPoints.movieUpcoming,
+        queryParams: {
+          "page": page,
+        });
     try {
       if (apiResponse.success && apiResponse.response?.data != null) {
         return MovieListResponse.fromJson(apiResponse.response?.data);

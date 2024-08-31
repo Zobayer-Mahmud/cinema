@@ -97,16 +97,18 @@ class MovieDetailsView extends StatelessWidget {
                                   children: [
                                     if (controller.movieDetails?.popularity !=
                                         null)
-                                      Text(
-                                        "${controller.movieDetails?.popularity?.toString() ?? ""} Popularity",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.copyWith(color: Colors.green),
+                                      Expanded(
+                                        child: Text(
+                                          "${controller.movieDetails?.popularity?.toString() ?? ""} Popularity",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(color: Colors.green),
+                                        ),
                                       ),
                                     if (controller.movieDetails?.popularity !=
                                         null)
-                                      const Gap(8),
+                                      const Gap(4),
                                     if (controller.movieDetails?.voteAverage !=
                                         null)
                                       Text(
