@@ -1,8 +1,8 @@
+import 'package:cinema/app/modules/app_widgets/not_found_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../common/app_constants.dart';
 import '../../../common/app_dimens.dart';
@@ -12,7 +12,7 @@ import '../../app_widgets/custom_search_box.dart';
 import '../controllers/search_movie_controller.dart';
 
 class SearchMovieView extends StatelessWidget {
-  const SearchMovieView({Key? key}) : super(key: key);
+  const SearchMovieView({super.key});
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SearchMovieController>(builder: (controller) {
@@ -38,8 +38,8 @@ class SearchMovieView extends StatelessWidget {
                       CustomSearchBox(
                           hintText: "Search here",
                           textEditingController: controller.searchController,
-                          suffixIcon: Padding(
-                            padding: const EdgeInsets.all(3),
+                          suffixIcon: const Padding(
+                            padding: EdgeInsets.all(3),
                             child: Icon(
                               Icons.search,
                               color: Colors.black,
@@ -119,10 +119,10 @@ class SearchMovieView extends StatelessWidget {
                         }),
                   ),
                 )
-              else
-                const Spacer(),
-              const Gap(AppDimens.paddingMedium),
-              Gap(Get.height * 0.02),
+              else if (controller.searchController.text.isNotEmpty)
+                const NotFoundWidget(
+                  notFoundText: "Sorry!, no movie found!",
+                )
             ],
           ));
     });
