@@ -1,5 +1,6 @@
 import 'package:cinema/app/modules/MovieList/views/movie_list_view.dart';
 import 'package:cinema/app/modules/favourites/views/favourites_view.dart';
+import 'package:cinema/app/modules/searchMovie/views/search_movie_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class HomeView extends StatelessWidget {
                   index: controller.selectedIndex,
                   children: const [
                     MovieListView(),
+                    SearchMovieView(),
                     FavouritesView(),
                   ],
                 ),
@@ -60,10 +62,16 @@ class HomeView extends StatelessWidget {
                       onPressed: () => controller.changeIndex(0),
                     ),
                     BottomNavItem(
-                      label: 'Favourites ',
+                      label: 'Search ',
                       isSelected: controller.selectedIndex == 1,
-                      icon: Icons.favorite_border,
+                      icon: Icons.search,
                       onPressed: () => controller.changeIndex(1),
+                    ),
+                    BottomNavItem(
+                      label: 'Favourites ',
+                      isSelected: controller.selectedIndex == 2,
+                      icon: Icons.favorite_border,
+                      onPressed: () => controller.changeIndex(2),
                     ),
                   ],
                 ),

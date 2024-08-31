@@ -86,4 +86,20 @@ class MovieService extends BaseApiService {
     }
     return null;
   }
+
+  Future<MovieListResponse?> searchMovie({num? page, String? title}) async {
+    ApiResponse apiResponse = await dioClient.get(
+        endpoint: ApiEndPoints.searchMovie,
+        queryParams: {"page": page, "query": title?.toString()});
+    try {
+      if (apiResponse.success && apiResponse.response?.data != null) {
+        return MovieListResponse.fromJson(apiResponse.response?.data);
+      } else {
+        sharedController.logger.e("searchMovie parse error $runtimeType");
+      }
+    } catch (e) {
+      sharedController.logger.e("searchMovie api error $runtimeType");
+    }
+    return null;
+  }
 }

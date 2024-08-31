@@ -4,5 +4,6 @@ class ApiEndPoints {
   static const String movie = 'movie';
   static const String moviePopular = 'movie/popular';
   static const String movieUpcoming = 'movie/upcoming';
+  static const String searchMovie = 'search/movie';
   static const String temp = '';
 }
