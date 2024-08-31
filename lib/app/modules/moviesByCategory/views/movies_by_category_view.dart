@@ -22,9 +22,8 @@ class MoviesByCategoryView extends StatelessWidget {
       return Scaffold(
           appBar: AppBar(
             leading: const ArrowBackButton(),
-            title: Text(
-                controller.movieListType.toShortString().capitalizeFirst! ??
-                    ""),
+            title:
+                Text(controller.movieListType.toShortString().capitalizeFirst!),
             centerTitle: true,
           ),
           body: RefreshIndicator(
@@ -42,6 +41,7 @@ class MoviesByCategoryView extends StatelessWidget {
                                   itemCount: controller.movies.length,
                                   itemBuilder: (context, index) {
                                     var item = controller.movies[index];
+
                                     return GestureDetector(
                                       onTap: () {
                                         Get.toNamed(Routes.MOVIE_DETAILS,
@@ -70,16 +70,38 @@ class MoviesByCategoryView extends StatelessWidget {
                                             ),
                                             const Gap(AppDimens.paddingMedium),
                                             Expanded(
-                                              child: Text(
-                                                item.name ?? item.title ?? '',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w700),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    item.name ??
+                                                        item.title ??
+                                                        '',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w700),
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  if (item.firstAirDate != null)
+                                                    Text(
+                                                      item.firstAirDate?.year
+                                                              .toString() ??
+                                                          '',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              color:
+                                                                  Colors.grey),
+                                                    )
+                                                ],
                                               ),
                                             ),
                                           ],
