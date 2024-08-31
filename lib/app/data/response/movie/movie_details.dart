@@ -65,7 +65,11 @@ class MovieDetails {
       });
     }
     if (json['release_date'] != null) {
-      releaseDate = DateTime.tryParse(json['release_date']);
+      if (json['release_date'] is String) {
+        releaseDate = DateTime.tryParse(json['release_date']);
+      } else if (json['release_date'] is DateTime) {
+        releaseDate = json['release_date'];
+      }
     }
     revenue = json['revenue'];
     runtime = json['runtime'];

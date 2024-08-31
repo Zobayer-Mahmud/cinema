@@ -9,4 +9,7 @@ class AppConstants {
 
   static const String imageBaseUrl = "https://image.tmdb.org/t/p/original/";
   static const String dummyImageURL = "https://picsum.photos/200/300";
+
+  //Hive Box Key
+  static const String favouritesKey = "favorites";
 }

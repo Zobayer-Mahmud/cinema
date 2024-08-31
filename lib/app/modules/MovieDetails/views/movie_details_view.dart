@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema/app/common/app_constants.dart';
 import 'package:cinema/app/common/app_dimens.dart';
 import 'package:cinema/app/modules/app_widgets/app_loader.dart';
+import 'package:cinema/app/modules/favourites/controllers/favourites_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -38,6 +39,38 @@ class MovieDetailsView extends StatelessWidget {
                             left: 16,
                             child: ArrowBackButton(),
                           ),
+                          GetBuilder<FavouritesController>(
+                              builder: (favController) {
+                            return Positioned(
+                              top: 40,
+                              right: 16,
+                              child: GestureDetector(
+                                onTap: () => favController
+                                    .toggleFavorite(controller.movieDetails!),
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 10, top: 10),
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: favController.isFavorite(
+                                              controller.movieDetails!)
+                                          ? Colors.white.withOpacity(0.8)
+                                          : Colors.white30,
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    favController.isFavorite(
+                                            controller.movieDetails!)
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: favController.isFavorite(
+                                            controller.movieDetails!)
+                                        ? Colors.red
+                                        : Colors.black12,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
                         ],
                       ),
                       Padding(
