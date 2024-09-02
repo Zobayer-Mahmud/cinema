@@ -4,6 +4,8 @@ import 'package:cinema/app/data/response/movie/movie_details.dart';
 import 'package:cinema/app/data/response/movie_credit_response.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+
 class MovieDetailsController extends BaseController {
   MovieService movieService = Get.find();
   bool showLoading = false;
@@ -35,7 +37,8 @@ class MovieDetailsController extends BaseController {
   }
 
   getMovieDetails() async {
-    movieDetails = await movieService.getMoviesDetails(movieId: movieId);
+    movieDetails = await movieService.getMoviesDetails(
+        movieId: movieId, appendToResponseKey: "videos");
     update();
   }
 
@@ -45,5 +48,10 @@ class MovieDetailsController extends BaseController {
     casts = movieCreditResponse?.cast ?? [];
     crews = movieCreditResponse?.crew ?? [];
     update();
+  }
+
+  void onMovieTrailerPlay() {
+    Get.toNamed(Routes.VIDEO_PLAY,
+        parameters: {"video_key": movieDetails?.trailerUrl?.toString() ?? ''});
   }
 }

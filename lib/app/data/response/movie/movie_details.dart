@@ -1,3 +1,6 @@
+import 'package:cinema/app/modules/app_widgets/videos_response.dart';
+import 'package:get/get.dart';
+
 import '../genre/genre_list_response.dart';
 
 class MovieDetails {
@@ -28,6 +31,7 @@ class MovieDetails {
     this.video,
     this.voteAverage,
     this.voteCount,
+    this.videosResponse,
   });
 
   MovieDetails.fromJson(dynamic json) {
@@ -65,7 +69,11 @@ class MovieDetails {
       });
     }
     if (json['release_date'] != null) {
-      releaseDate = DateTime.tryParse(json['release_date']);
+      if (json['release_date'] is String) {
+        releaseDate = DateTime.tryParse(json['release_date']);
+      } else if (json['release_date'] is DateTime) {
+        releaseDate = json['release_date'];
+      }
     }
     revenue = json['revenue'];
     runtime = json['runtime'];
@@ -81,6 +89,18 @@ class MovieDetails {
     video = json['video'];
     voteAverage = json['vote_average'];
     voteCount = json['vote_count'];
+    if (json['videos'] != null) {
+      videosResponse = VideosResponse.fromJson(json['videos']);
+      if (videosResponse?.videos?.isNotEmpty == true) {
+        var youtubeVideo = videosResponse?.videos?.firstWhereOrNull(
+          (e) => e.site == 'YouTube' && e.type == 'Trailer',
+        );
+        if (youtubeVideo?.key != null) {
+          trailerUrl = youtubeVideo?.key;
+          // trailerUrl = 'https://www.youtube.com/watch?v=${youtubeVideo?.key}';
+        }
+      }
+    }
   }
   bool? adult;
   String? backdropPath;
@@ -108,6 +128,8 @@ class MovieDetails {
   bool? video;
   num? voteAverage;
   num? voteCount;
+  VideosResponse? videosResponse;
+  String? trailerUrl;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -148,6 +170,7 @@ class MovieDetails {
     map['video'] = video;
     map['vote_average'] = voteAverage;
     map['vote_count'] = voteCount;
+    map['videos'] = videosResponse?.toJson();
     return map;
   }
 }

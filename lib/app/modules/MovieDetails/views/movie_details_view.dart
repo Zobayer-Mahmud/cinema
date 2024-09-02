@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema/app/common/app_constants.dart';
 import 'package:cinema/app/common/app_dimens.dart';
 import 'package:cinema/app/modules/app_widgets/app_loader.dart';
+import 'package:cinema/app/modules/app_widgets/custom_image.dart';
+import 'package:cinema/app/modules/favourites/controllers/favourites_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -27,8 +29,9 @@ class MovieDetailsView extends StatelessWidget {
                     children: [
                       Stack(
                         children: [
-                          Image.network(
-                            "${AppConstants.imageBaseUrl}${controller.movieDetails?.posterPath}", // Replace with actual image URL
+                          CustomImage(
+                            image:
+                                "${AppConstants.imageBaseUrl}${controller.movieDetails?.posterPath}", // Replace with actual image URL
                             width: double.infinity,
                             height: 300,
                             fit: BoxFit.cover,
@@ -38,6 +41,38 @@ class MovieDetailsView extends StatelessWidget {
                             left: 16,
                             child: ArrowBackButton(),
                           ),
+                          GetBuilder<FavouritesController>(
+                              builder: (favController) {
+                            return Positioned(
+                              top: 40,
+                              right: 16,
+                              child: GestureDetector(
+                                onTap: () => favController
+                                    .toggleFavorite(controller.movieDetails!),
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 10, top: 10),
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: favController.isFavorite(
+                                              controller.movieDetails!)
+                                          ? Colors.white.withOpacity(0.8)
+                                          : Colors.white30,
+                                      shape: BoxShape.circle),
+                                  child: Icon(
+                                    favController.isFavorite(
+                                            controller.movieDetails!)
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+                                    color: favController.isFavorite(
+                                            controller.movieDetails!)
+                                        ? Colors.red
+                                        : Colors.black12,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
                         ],
                       ),
                       Padding(
@@ -97,16 +132,18 @@ class MovieDetailsView extends StatelessWidget {
                                   children: [
                                     if (controller.movieDetails?.popularity !=
                                         null)
-                                      Text(
-                                        "${controller.movieDetails?.popularity?.toString() ?? ""} Popularity",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge
-                                            ?.copyWith(color: Colors.green),
+                                      Expanded(
+                                        child: Text(
+                                          "${controller.movieDetails?.popularity?.toString() ?? ""} Popularity",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(color: Colors.green),
+                                        ),
                                       ),
                                     if (controller.movieDetails?.popularity !=
                                         null)
-                                      const Gap(8),
+                                      const Gap(4),
                                     if (controller.movieDetails?.voteAverage !=
                                         null)
                                       Text(
@@ -139,31 +176,28 @@ class MovieDetailsView extends StatelessWidget {
                                           .toList() ??
                                       [],
                                 ),
-
                                 const Gap(AppDimens.paddingMedium),
-
-                                // ElevatedButton(
-                                //   onPressed: () {
-                                //     // Handle play action
-                                //   },
-                                //   style: ElevatedButton.styleFrom(
-                                //     backgroundColor: Colors.grey[800],
-                                //     shape: RoundedRectangleBorder(
-                                //       borderRadius: BorderRadius.circular(8),
-                                //     ),
-                                //   ),
-                                //   child: const Center(
-                                //     child: Padding(
-                                //       padding:
-                                //           EdgeInsets.symmetric(vertical: 12.0),
-                                //       child: Text(
-                                //         'Play',
-                                //         style: TextStyle(fontSize: 18),
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                // const SizedBox(height: 16),
+                                if (controller.movieDetails?.trailerUrl != null)
+                                  ElevatedButton(
+                                    onPressed: controller.onMovieTrailerPlay,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.grey[800],
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    child: const Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 12.0),
+                                        child: Text(
+                                          'Play Trailer',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                const Gap(AppDimens.paddingMedium),
                                 if (controller.movieDetails?.overview != null)
                                   const Text(
                                     'Prolog',
@@ -196,7 +230,6 @@ class MovieDetailsView extends StatelessWidget {
                                     ),
                                 if (controller.movieDetails?.overview != null)
                                   const Gap(AppDimens.paddingMedium),
-
                                 if (controller.movieDetails?.productionCompanies
                                         ?.isNotEmpty ==
                                     true)

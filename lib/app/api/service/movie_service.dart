@@ -7,13 +7,15 @@ import 'package:cinema/app/data/response/movie/movie_details.dart';
 import 'package:cinema/app/data/response/movie_credit_response.dart';
 
 import '../../data/response/movie/movie_list_response.dart';
+import '../../utils/enums/movie_list_type.dart';
 
 class MovieService extends BaseApiService {
-  Future<MovieDetails?> getMoviesDetails({num? movieId}) async {
-    ApiResponse apiResponse = await dioClient.get(
-      endpoint: "${ApiEndPoints.movie}/$movieId", /* queryParams: {
-    }*/
-    );
+  Future<MovieDetails?> getMoviesDetails(
+      {num? movieId, String? appendToResponseKey}) async {
+    ApiResponse apiResponse = await dioClient
+        .get(endpoint: "${ApiEndPoints.movie}/$movieId", queryParams: {
+      "append_to_response": appendToResponseKey,
+    });
     try {
       if (apiResponse.success && apiResponse.response?.data != null) {
         return MovieDetails.fromJson(apiResponse.response?.data);
@@ -26,11 +28,17 @@ class MovieService extends BaseApiService {
     return null;
   }
 
-  Future<MovieListResponse?> getMoviesList({num? page}) async {
-    ApiResponse apiResponse = await dioClient
-        .get(endpoint: ApiEndPoints.trendingAllDay, queryParams: {
-      "page": page,
-    });
+  Future<MovieListResponse?> getMoviesList(
+      {num? page, MovieListType type = MovieListType.trending}) async {
+    ApiResponse apiResponse = await dioClient.get(
+        endpoint: type == MovieListType.trending
+            ? ApiEndPoints.trendingAllDay
+            : type == MovieListType.popular
+                ? ApiEndPoints.moviePopular
+                : ApiEndPoints.movieUpcoming,
+        queryParams: {
+          "page": page,
+        });
     try {
       if (apiResponse.success && apiResponse.response?.data != null) {
         return MovieListResponse.fromJson(apiResponse.response?.data);
@@ -76,6 +84,22 @@ class MovieService extends BaseApiService {
     } catch (e) {
       sharedController.logger
           .e("getMovieCastAndCrewByMovieId api error $runtimeType");
+    }
+    return null;
+  }
+
+  Future<MovieListResponse?> searchMovie({num? page, String? title}) async {
+    ApiResponse apiResponse = await dioClient.get(
+        endpoint: ApiEndPoints.searchMovie,
+        queryParams: {"page": page, "query": title?.toString()});
+    try {
+      if (apiResponse.success && apiResponse.response?.data != null) {
+        return MovieListResponse.fromJson(apiResponse.response?.data);
+      } else {
+        sharedController.logger.e("searchMovie parse error $runtimeType");
+      }
+    } catch (e) {
+      sharedController.logger.e("searchMovie api error $runtimeType");
     }
     return null;
   }

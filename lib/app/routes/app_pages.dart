@@ -10,6 +10,10 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/moviesByCategory/bindings/movies_by_category_binding.dart';
 import '../modules/moviesByCategory/views/movies_by_category_view.dart';
+import '../modules/searchMovie/bindings/search_movie_binding.dart';
+import '../modules/searchMovie/views/search_movie_view.dart';
+import '../modules/videoPlay/bindings/video_play_binding.dart';
+import '../modules/videoPlay/views/video_play_view.dart';
 
 part 'app_routes.dart';
 
@@ -43,6 +47,16 @@ class AppPages {
       name: _Paths.MOVIES_BY_CATEGORY,
       page: () => const MoviesByCategoryView(),
       binding: MoviesByCategoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_MOVIE,
+      page: () => const SearchMovieView(),
+      binding: SearchMovieBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_PLAY,
+      page: () => const VideoPlayView(),
+      binding: VideoPlayBinding(),
     ),
   ];
 }

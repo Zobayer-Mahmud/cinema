@@ -8,4 +8,5 @@ class SharedController extends GetxController {
   List<Genres> genresList = [];
 
 
+
 }

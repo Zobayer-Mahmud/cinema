@@ -1,5 +1,6 @@
 import 'package:cinema/app/modules/MovieList/views/movie_list_view.dart';
 import 'package:cinema/app/modules/favourites/views/favourites_view.dart';
+import 'package:cinema/app/modules/searchMovie/views/search_movie_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,53 +23,67 @@ class HomeView extends StatelessWidget {
           showExitDialog(context);
         },
         child: Scaffold(
-            body: Stack(
-              children: [
-                IndexedStack(
-                  index: controller.selectedIndex,
-                  children: const [
-                    MovieListView(),
-                    FavouritesView(),
-                  ],
-                ),
-              ],
-            ),
-            bottomNavigationBar: SafeArea(
-              child: Container(
-                height: 84,
-                padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                margin: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(40)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      offset: const Offset(0, 20),
-                      blurRadius: 20,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BottomNavItem(
-                      label: 'Movies',
-                      isSelected: controller.selectedIndex == 0,
-                      icon: Icons.home_outlined,
-                      onPressed: () => controller.changeIndex(0),
-                    ),
-                    BottomNavItem(
-                      label: 'Favourites ',
-                      isSelected: controller.selectedIndex == 1,
-                      icon: Icons.favorite_border,
-                      onPressed: () => controller.changeIndex(1),
-                    ),
-                  ],
-                ),
+          body: Stack(
+            children: [
+              IndexedStack(
+                index: controller.selectedIndex,
+                children: const [
+                  MovieListView(),
+                  SearchMovieView(),
+                  FavouritesView(),
+                ],
               ),
-            )),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: SafeArea(
+                  child: Container(
+                    height: 84,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 20),
+                    margin:
+                        const EdgeInsets.only(left: 24, right: 24, bottom: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(Radius.circular(40)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          offset: const Offset(0, 20),
+                          blurRadius: 20,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        BottomNavItem(
+                          label: 'Movies',
+                          isSelected: controller.selectedIndex == 0,
+                          icon: Icons.home_outlined,
+                          onPressed: () => controller.changeIndex(0),
+                        ),
+                        BottomNavItem(
+                          label: 'Search ',
+                          isSelected: controller.selectedIndex == 1,
+                          icon: Icons.search,
+                          onPressed: () => controller.changeIndex(1),
+                        ),
+                        BottomNavItem(
+                          label: 'Favourites ',
+                          isSelected: controller.selectedIndex == 2,
+                          icon: Icons.favorite_border,
+                          onPressed: () => controller.changeIndex(2),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       );
     });
   }

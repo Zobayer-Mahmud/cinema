@@ -2,6 +2,7 @@ import 'package:cinema/app/api/service/movie_service.dart';
 import 'package:cinema/app/base/base_controller.dart';
 import 'package:cinema/app/common/app_constants.dart';
 import 'package:cinema/app/data/response/movie/movie_list_response.dart';
+import 'package:cinema/app/utils/enums/movie_list_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -14,11 +15,23 @@ class MovieListController extends BaseController {
   bool showLoading = false;
   @override
   onReady() async {
+    await getInitialData();
+  }
+
+  getInitialData() async {
+    showLoading = true;
+    update();
     getGenreList();
-    getTrendingMovieList();
+    await getTrendingMovieList();
+    await getPopularMovieList();
+    await getUpcomingMovieList();
+    showLoading = false;
+    update();
   }
 
   List<MovieModel> trendingList = [];
+  List<MovieModel> popularList = [];
+  List<MovieModel> upcomingList = [];
   getGenreList() async {
     GenreListResponse? genreListResponse =
         await movieService.getMovieGenreList();
@@ -26,14 +39,39 @@ class MovieListController extends BaseController {
     sharedController.update();
   }
 
-  void getTrendingMovieList() async {
-    MovieListResponse? movieListResponse = await movieService.getMoviesList();
+  getTrendingMovieList() async {
+    MovieListResponse? movieListResponse =
+        await movieService.getMoviesList(type: MovieListType.trending);
     trendingList = movieListResponse?.movies ?? [];
+    update();
+  }
+
+  getPopularMovieList() async {
+    MovieListResponse? movieListResponse =
+        await movieService.getMoviesList(type: MovieListType.popular);
+    popularList = movieListResponse?.movies ?? [];
+    update();
+  }
+
+  getUpcomingMovieList() async {
+    MovieListResponse? movieListResponse =
+        await movieService.getMoviesList(type: MovieListType.upcoming);
+    upcomingList = movieListResponse?.movies ?? [];
     update();
   }
 
   void onTrendingNowSeeMore() {
     Get.toNamed(Routes.MOVIES_BY_CATEGORY,
-        parameters: {'tye': "trending_movie"});
+        parameters: {'type': MovieListType.trending.toShortString()});
+  }
+
+  void onPopularSeeMore() {
+    Get.toNamed(Routes.MOVIES_BY_CATEGORY,
+        parameters: {'type': MovieListType.popular.toShortString()});
+  }
+
+  void onUpcomingSeeMore() {
+    Get.toNamed(Routes.MOVIES_BY_CATEGORY,
+        parameters: {'type': MovieListType.upcoming.toShortString()});
   }
 }

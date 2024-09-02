@@ -11,7 +11,7 @@ class ArrowBackButton extends StatelessWidget {
       onTap: onTap ?? Get.back,
       child: Container(
         margin: const EdgeInsets.only(left: 10, top: 10),
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration:
             const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
         child: const Icon(
