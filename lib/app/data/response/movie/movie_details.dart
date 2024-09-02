@@ -93,7 +93,7 @@ class MovieDetails {
       videosResponse = VideosResponse.fromJson(json['videos']);
       if (videosResponse?.videos?.isNotEmpty == true) {
         var youtubeVideo = videosResponse?.videos?.firstWhereOrNull(
-          (video) => video.site == 'YouTube' && video.type == 'Trailer',
+          (e) => e.site == 'YouTube' && e.type == 'Trailer',
         );
         if (youtubeVideo?.key != null) {
           trailerUrl = youtubeVideo?.key;
@@ -170,7 +170,7 @@ class MovieDetails {
     map['video'] = video;
     map['vote_average'] = voteAverage;
     map['vote_count'] = voteCount;
-    map['video'] = videosResponse?.toJson();
+    map['videos'] = videosResponse?.toJson();
     return map;
   }
 }

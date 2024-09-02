@@ -15,10 +15,18 @@ class MovieListController extends BaseController {
   bool showLoading = false;
   @override
   onReady() async {
+    await getInitialData();
+  }
+
+  getInitialData() async {
+    showLoading = true;
+    update();
     getGenreList();
-    getTrendingMovieList();
-    getPopularMovieList();
-    getUpcomingMovieList();
+    await getTrendingMovieList();
+    await getPopularMovieList();
+    await getUpcomingMovieList();
+    showLoading = false;
+    update();
   }
 
   List<MovieModel> trendingList = [];
@@ -31,21 +39,21 @@ class MovieListController extends BaseController {
     sharedController.update();
   }
 
-  void getTrendingMovieList() async {
+  getTrendingMovieList() async {
     MovieListResponse? movieListResponse =
         await movieService.getMoviesList(type: MovieListType.trending);
     trendingList = movieListResponse?.movies ?? [];
     update();
   }
 
-  void getPopularMovieList() async {
+  getPopularMovieList() async {
     MovieListResponse? movieListResponse =
         await movieService.getMoviesList(type: MovieListType.popular);
     popularList = movieListResponse?.movies ?? [];
     update();
   }
 
-  void getUpcomingMovieList() async {
+  getUpcomingMovieList() async {
     MovieListResponse? movieListResponse =
         await movieService.getMoviesList(type: MovieListType.upcoming);
     upcomingList = movieListResponse?.movies ?? [];
@@ -60,7 +68,9 @@ class MovieListController extends BaseController {
   void onPopularSeeMore() {
     Get.toNamed(Routes.MOVIES_BY_CATEGORY,
         parameters: {'type': MovieListType.popular.toShortString()});
-  }  void onUpcomingSeeMore() {
+  }
+
+  void onUpcomingSeeMore() {
     Get.toNamed(Routes.MOVIES_BY_CATEGORY,
         parameters: {'type': MovieListType.upcoming.toShortString()});
   }
