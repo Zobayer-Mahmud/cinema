@@ -27,7 +27,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   hive_flutter: ^1.1.0
   youtube_player_flutter: ^9.0.3
-  geolocator:
+#  geolocator:
 
 
 
@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/png/
     - assets/lottie/
+    - assets/svg/
 
 
 scripts:

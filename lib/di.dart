@@ -14,6 +14,7 @@ class ServiceLocator {
     Get.put<SharedController>(SharedController());
     await Hive.initFlutter();
     await Hive.openBox('favorites');
+    await Hive.openBox('preferences');
     //register Services Here . .
     await Get.putAsync<DioClient>(() => DioClient().init());
     await Get.putAsync<MovieService>(() async => MovieService());
