@@ -18,6 +18,7 @@ class MovieListView extends StatelessWidget {
           title: const Text('Movies'),
           centerTitle: true,
         ),
+
         body: ListView(
           padding: const EdgeInsets.symmetric(
               horizontal: AppDimens.paddingMedium,
@@ -114,6 +115,7 @@ class MovieListView extends StatelessWidget {
                   },
                 ),
               ),
+            const Gap(100),
           ],
         ),
       );

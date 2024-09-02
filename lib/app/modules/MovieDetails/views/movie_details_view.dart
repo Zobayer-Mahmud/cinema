@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema/app/common/app_constants.dart';
 import 'package:cinema/app/common/app_dimens.dart';
 import 'package:cinema/app/modules/app_widgets/app_loader.dart';
+import 'package:cinema/app/modules/app_widgets/custom_image.dart';
 import 'package:cinema/app/modules/favourites/controllers/favourites_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -28,8 +29,9 @@ class MovieDetailsView extends StatelessWidget {
                     children: [
                       Stack(
                         children: [
-                          Image.network(
-                            "${AppConstants.imageBaseUrl}${controller.movieDetails?.posterPath}", // Replace with actual image URL
+                          CustomImage(
+                            image:
+                                "${AppConstants.imageBaseUrl}${controller.movieDetails?.posterPath}", // Replace with actual image URL
                             width: double.infinity,
                             height: 300,
                             fit: BoxFit.cover,
@@ -174,31 +176,28 @@ class MovieDetailsView extends StatelessWidget {
                                           .toList() ??
                                       [],
                                 ),
-
                                 const Gap(AppDimens.paddingMedium),
-
-                                // ElevatedButton(
-                                //   onPressed: () {
-                                //     // Handle play action
-                                //   },
-                                //   style: ElevatedButton.styleFrom(
-                                //     backgroundColor: Colors.grey[800],
-                                //     shape: RoundedRectangleBorder(
-                                //       borderRadius: BorderRadius.circular(8),
-                                //     ),
-                                //   ),
-                                //   child: const Center(
-                                //     child: Padding(
-                                //       padding:
-                                //           EdgeInsets.symmetric(vertical: 12.0),
-                                //       child: Text(
-                                //         'Play',
-                                //         style: TextStyle(fontSize: 18),
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                // const SizedBox(height: 16),
+                                if (controller.movieDetails?.trailerUrl != null)
+                                  ElevatedButton(
+                                    onPressed: controller.onMovieTrailerPlay,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.grey[800],
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    child: const Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 12.0),
+                                        child: Text(
+                                          'Play Trailer',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                const Gap(AppDimens.paddingMedium),
                                 if (controller.movieDetails?.overview != null)
                                   const Text(
                                     'Prolog',
@@ -231,7 +230,6 @@ class MovieDetailsView extends StatelessWidget {
                                     ),
                                 if (controller.movieDetails?.overview != null)
                                   const Gap(AppDimens.paddingMedium),
-
                                 if (controller.movieDetails?.productionCompanies
                                         ?.isNotEmpty ==
                                     true)

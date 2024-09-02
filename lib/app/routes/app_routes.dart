@@ -9,6 +9,7 @@ abstract class Routes {
   static const FAVOURITES = _Paths.FAVOURITES;
   static const MOVIES_BY_CATEGORY = _Paths.MOVIES_BY_CATEGORY;
   static const SEARCH_MOVIE = _Paths.SEARCH_MOVIE;
+  static const VIDEO_PLAY = _Paths.VIDEO_PLAY;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const FAVOURITES = '/favourites';
   static const MOVIES_BY_CATEGORY = '/movies-by-category';
   static const SEARCH_MOVIE = '/search-movie';
+  static const VIDEO_PLAY = '/video-play';
 }

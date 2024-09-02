@@ -32,7 +32,8 @@ class MoviesByCategoryView extends StatelessWidget {
                   ? const AppLoader()
                   : controller.movies.isNotEmpty
                       ? Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          padding:
+                              const EdgeInsets.all(AppDimens.paddingMedium),
                           child: NotificationListener<ScrollNotification>(
                             onNotification: controller.onNotification,
                             child: AnimationLimiter(

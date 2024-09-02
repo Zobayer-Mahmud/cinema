@@ -10,11 +10,12 @@ import '../../data/response/movie/movie_list_response.dart';
 import '../../utils/enums/movie_list_type.dart';
 
 class MovieService extends BaseApiService {
-  Future<MovieDetails?> getMoviesDetails({num? movieId}) async {
-    ApiResponse apiResponse = await dioClient.get(
-      endpoint: "${ApiEndPoints.movie}/$movieId", /* queryParams: {
-    }*/
-    );
+  Future<MovieDetails?> getMoviesDetails(
+      {num? movieId, String? appendToResponseKey}) async {
+    ApiResponse apiResponse = await dioClient
+        .get(endpoint: "${ApiEndPoints.movie}/$movieId", queryParams: {
+      "append_to_response": appendToResponseKey,
+    });
     try {
       if (apiResponse.success && apiResponse.response?.data != null) {
         return MovieDetails.fromJson(apiResponse.response?.data);
