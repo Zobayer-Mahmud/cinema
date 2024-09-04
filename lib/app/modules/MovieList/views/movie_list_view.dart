@@ -24,7 +24,7 @@ class MovieListView extends StatelessWidget {
               padding: const EdgeInsets.only(right: AppDimens.paddingMedium),
               child: InkWell(
                 onTap: controller.routeToNearbyTheaters,
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
