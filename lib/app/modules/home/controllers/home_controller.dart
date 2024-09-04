@@ -31,7 +31,7 @@ class HomeController extends BaseController {
     }
 
     return sharedController.userLocation =
-        await Geolocator.getCurrentPosition();
+        await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
   int selectedIndex = 0;

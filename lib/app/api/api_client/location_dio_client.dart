@@ -45,10 +45,10 @@ class LocationDioClient extends g.GetxService {
 
   Future<NearbyTheaterResponse?> getNearbyTheater(
       {Position? userLocation}) async {
-    String url =
-        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=23.8041,90.4152&radius=5000&type=movie_theater&key=${AppConstants.mapKey}';
-    // final String url =
-    //        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation?.latitude},${userLocation?.longitude}&radius=5000&type=movie_theater&key=${AppConstants.mapKey}';
+    // String url =
+    //     'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=23.8041,90.4152&radius=5000&type=movie_theater&key=${AppConstants.mapKey}';
+    final String url =
+        'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${userLocation?.latitude},${userLocation?.longitude}&radius=5000&type=movie_theater&key=${AppConstants.mapKey}';
 
     final response = await _dio.get(
       url,
