@@ -10,6 +10,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/moviesByCategory/bindings/movies_by_category_binding.dart';
 import '../modules/moviesByCategory/views/movies_by_category_view.dart';
+import '../modules/nearbyTheater/bindings/nearby_theater_binding.dart';
+import '../modules/nearbyTheater/views/nearby_theater_view.dart';
 import '../modules/searchMovie/bindings/search_movie_binding.dart';
 import '../modules/searchMovie/views/search_movie_view.dart';
 import '../modules/videoPlay/bindings/video_play_binding.dart';
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.VIDEO_PLAY,
       page: () => const VideoPlayView(),
       binding: VideoPlayBinding(),
+    ),
+    GetPage(
+      name: _Paths.NEARBY_THEATER,
+      page: () => const NearbyTheaterView(),
+      binding: NearbyTheaterBinding(),
     ),
   ];
 }

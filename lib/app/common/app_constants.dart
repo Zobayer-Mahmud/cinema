@@ -13,4 +13,6 @@ class AppConstants {
   //Hive Box Key
   static const String favouritesKey = "favorites";
   static const String preferencesKey = "preferences";
+  static const String mapKey = "AIzaSyDWI9zg_vKmjd4e2XdqFbFVSR4wLKcKvrg";
+
 }

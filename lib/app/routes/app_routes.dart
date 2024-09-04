@@ -10,6 +10,7 @@ abstract class Routes {
   static const MOVIES_BY_CATEGORY = _Paths.MOVIES_BY_CATEGORY;
   static const SEARCH_MOVIE = _Paths.SEARCH_MOVIE;
   static const VIDEO_PLAY = _Paths.VIDEO_PLAY;
+  static const NEARBY_THEATER = _Paths.NEARBY_THEATER;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const MOVIES_BY_CATEGORY = '/movies-by-category';
   static const SEARCH_MOVIE = '/search-movie';
   static const VIDEO_PLAY = '/video-play';
+  static const NEARBY_THEATER = '/nearby-theater';
 }
