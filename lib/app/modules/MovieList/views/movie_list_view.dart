@@ -19,6 +19,24 @@ class MovieListView extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Movies'),
           centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: AppDimens.paddingMedium),
+              child: InkWell(
+                onTap: controller.routeToNearbyTheaters,
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.theaters),
+                    Gap(4),
+                    Text("Theaters"),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
         body: controller.showLoading
             ? const AppLoader()

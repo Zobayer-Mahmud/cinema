@@ -27,7 +27,11 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   hive_flutter: ^1.1.0
   youtube_player_flutter: ^9.0.3
-  geolocator:
+  geolocator: ^9.0.1
+  google_maps_flutter: ^2.3.0
+
+#  geolocator:
+#  geolocator_android: ^4.6.1
 
 
 
@@ -37,12 +41,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  mockito: ^5.0.16
 
 flutter:
   uses-material-design: true
   assets:
     - assets/png/
     - assets/lottie/
+    - assets/svg/
 
 
 scripts:

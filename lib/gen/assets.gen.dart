@@ -39,11 +39,25 @@ class $AssetsPngGen {
   List<AssetGenImage> get values => [cinema, imgExit, loader, placeHolder];
 }
 
+class $AssetsSvgGen {
+  const $AssetsSvgGen();
+
+  /// File path: assets/svg/filter.svg
+  String get filter => 'assets/svg/filter.svg';
+
+  /// File path: assets/svg/olive_white.svg
+  String get oliveWhite => 'assets/svg/olive_white.svg';
+
+  /// List of all assets
+  List<String> get values => [filter, oliveWhite];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsLottieGen lottie = $AssetsLottieGen();
   static const $AssetsPngGen png = $AssetsPngGen();
+  static const $AssetsSvgGen svg = $AssetsSvgGen();
 }
 
 class AssetGenImage {
