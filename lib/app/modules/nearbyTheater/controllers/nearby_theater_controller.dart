@@ -32,6 +32,7 @@ class NearbyTheaterController extends BaseController {
   @override
   onReady() async {
     if (sharedController.userLocation != null) await getNearbyTheaterData();
+
   }
 
   getNearbyTheaterData() async {

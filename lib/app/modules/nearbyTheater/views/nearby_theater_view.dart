@@ -40,8 +40,11 @@ class NearbyTheaterView extends StatelessWidget {
                       );
                     },
                   )
-                : const NotFoundWidget(
-                    notFoundText: "Couldn't found any nearby theater"),
+                : NotFoundWidget(
+                    notFoundText: controller.sharedController.userLocation ==
+                            null
+                        ? "Couldn't found nearby theater without your location"
+                        : "Couldn't found any nearby theater"),
       );
     });
   }
