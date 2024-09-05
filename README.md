@@ -95,4 +95,4 @@ Base URL: https://api.themoviedb.org/3
 
 
 7. Google Maps for displaying nearby theaters.
-Overpass API used with OpenStreetMap for finding nearby theaters.
+Overpass API used with Google place api for finding nearby theaters.
