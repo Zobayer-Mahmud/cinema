@@ -25,6 +25,7 @@ class NearbyTheaterController extends BaseController {
     super.onInit();
     if (sharedController.userLocation == null) {
       await Get.find<HomeController>().getCurrentLocation();
+      update();
     }
   }
 
@@ -38,6 +39,7 @@ class NearbyTheaterController extends BaseController {
   }
 
   getNearbyTheaterData() async {
+    if (sharedController.userLocation == null) return;
     showLoading = true;
     update();
     NearbyTheaterResponse? nearbyTheaterResponse = await dioClient

@@ -74,12 +74,11 @@ lib/
 │   │   ├── bindings/                    # Bindings for favorites module
 │   │   ├── routes/                      # Routing for favorites module
 │   │  
-│   ├── map/
-│   │   ├── view/                        # Map view for showing nearby theaters
-│   │   ├── controller/                  # Controllers for map view
-│   │   ├── bindings/                    # Bindings for map module
-│   │   
-│   │  
+│   ── map/
+│       ├── view/                        # Map view for showing nearby theaters
+│       ├── controller/                  # Controllers for map view
+│       ├── bindings/                    # Bindings for map module
+│   
 ├── main.dart                            # Main entry point for the app
 ├── di.dart                            # Dependency injection for details module
 └── README.md                            # This file
